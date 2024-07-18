@@ -2,6 +2,7 @@ import './App.css'
 import {NavLink, Route, Routes} from "react-router-dom";
 import Home from "./containers/Home.tsx";
 import NotFound from "./components/NotFound.tsx";
+import MoviePage from "./containers/MoviePage.tsx";
 
 const App = () => {
 
@@ -14,6 +15,9 @@ const App = () => {
 
             <Routes>
                 <Route path="/" element={(
+                    <Home/>
+                )}/>
+                <Route path="/shows/:id" element={(
                     <Home/>
                 )}/>
                 <Route

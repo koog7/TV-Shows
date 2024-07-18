@@ -10,14 +10,13 @@ interface Props {
     movies: Movie[];
 }
 
-
 const AutocompleteBlock: React.FC<Props> = ({movies }) => {
     return (
         <div>
             <div>
                 {movies && movies.map((movie) => (
                     <div key={movie.id}>
-                        <NavLink className={'movie-name'} to={`/shows/id`}>{movie.name}</NavLink>
+                        <NavLink className={'movie-name'} to={`/shows/${movie.id}`}>{movie.name}</NavLink>
                     </div>
                 ))}
             </div>
