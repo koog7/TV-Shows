@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../app/store.ts";
 import '../App.css'
 import {useEffect, useState} from "react";
-import {getAllDataMovie, getMovie} from "./FetchSlice/FetchSlice.ts";
+import {getAllDataMovie, getMovie, setError} from "./FetchSlice/FetchSlice.ts";
 import {useParams} from "react-router-dom";
 
 
@@ -11,14 +11,26 @@ const Home: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const movies = useSelector((state: RootState) => state.movie.movies);
     const loader = useSelector((state :RootState) => state.movie.loader)
+    const error = useSelector((state :RootState) => state.movie.error)
     const [searchText, setSearchText] = useState('');
     const {id} = useParams();
     const moviesAllData = useSelector((state: RootState) => state.movie.moviesAllData);
 
     useEffect(() => {
-        dispatch(getMovie(searchText));
+        try{
+            dispatch(getMovie(searchText));
+            dispatch(setError(true));
+        }catch (e) {
+            console.error('Error fetching movie data:', error);
+        }
         if(id){
-            dispatch(getAllDataMovie(id))
+            try {
+                dispatch(getAllDataMovie(id))
+            }catch (e) {
+                console.error('Error fetching movie:', error);
+                dispatch(setError(true));
+            }
+            
         }
     }, [id,searchText]);
 
@@ -56,6 +68,7 @@ const Home: React.FC = () => {
                     onChange={(e) => setSearchText(e.target.value)}
                 />
             </div>
+            {error && <div className="error-message">Something happened wrong...</div>}
             <div className={'autocomplete-block'} style={{
                 display: movies.length > 0 ? 'block' : 'none',
                 maxHeight: '200px',

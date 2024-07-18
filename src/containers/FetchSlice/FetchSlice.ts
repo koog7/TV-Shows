@@ -63,8 +63,8 @@ export const MovieSlice = createSlice({
     name:'movie',
     initialState,
     reducers:{
-        clearState: (state) => {
-            state.movies = [];
+        setError: (state, action: PayloadAction<boolean>) => {
+            state.error = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -91,4 +91,4 @@ export const MovieSlice = createSlice({
 })
 
 export const MovieReducer = MovieSlice.reducer;
-export const  {clearState}  = MovieSlice.actions;
+export const  {setError}  = MovieSlice.actions;
