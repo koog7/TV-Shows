@@ -10,6 +10,7 @@ import {useParams} from "react-router-dom";
 const Home: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const movies = useSelector((state: RootState) => state.movie.movies);
+    const loader = useSelector((state :RootState) => state.movie.loader)
     const [searchText, setSearchText] = useState('');
     const {id} = useParams();
     const moviesAllData = useSelector((state: RootState) => state.movie.moviesAllData);
@@ -44,6 +45,9 @@ const Home: React.FC = () => {
 
     return (
         <div>
+            <div id="loader-container" style={{display: loader ? 'block' : 'none'}}>
+                <div className="loader"></div>
+            </div>
             <div className={'search-block'}>
                 <label>Search by name</label>
                 <input
@@ -60,7 +64,7 @@ const Home: React.FC = () => {
             }}>
                 <AutocompleteBlock movies={movies}/>
             </div>
-            <div style={{marginTop:'50px'}}>
+            <div style={{marginTop: '50px'}}>
                 {id && movieBlock}
             </div>
 

@@ -39,19 +39,19 @@ export const getMovie = createAsyncThunk<Movie[], string, { state: RootState }>(
     }
 });
 
-export const getAllDataMovie = createAsyncThunk<MovieData, string, { state: RootState }>('todos/fetchMoviesData', async (id) => {
+export const getAllDataMovie = createAsyncThunk<MovieData, string, { state: RootState }>('todos/fetchMoviesData', async (id:string) => {
     try{
-        const response = await axiosAPI.get<{ show: { id: number; name: string } }[]>(`http://api.tvmaze.com/shows/${id}`);
+        const response = await axiosAPI.get<MovieData>(`http://api.tvmaze.com/shows/${id}`);
         const data = response.data;
 
         return {
             id: data.id,
-            name: data.name,
-            language: data.language,
-            premiered: data.premiered,
-            averageRuntime: data.averageRuntime,
-            image: data.image.medium,
-            summary: data.summary,
+            name: data.name || 'No name available',
+            language: data.language || 'Unknown',
+            premiered: data.premiered || 'Unknown',
+            averageRuntime: data.averageRuntime || 0,
+            image: data.image ? data.image.medium : 'https://via.placeholder.com/210x295?text=No+Image',
+            summary: data.summary || 'No summary available',
         };
     }catch (error) {
         console.error('Error:', error);
