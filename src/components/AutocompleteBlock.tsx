@@ -1,11 +1,25 @@
-const AutocompleteBlock = () => {
+import React from "react";
+import {NavLink} from "react-router-dom";
+
+interface Movie {
+    id: number;
+    name: string;
+}
+
+interface Props {
+    movies: Movie[];
+}
+
+
+const AutocompleteBlock: React.FC<Props> = ({movies }) => {
     return (
         <div>
-            <div className={'autocomplete-block'}>
-                <p>A Haunting</p>
-                <p>A Teacher</p>
-                <p>The Ave</p>
-                <p>McGraw Ave</p>
+            <div>
+                {movies && movies.map((movie) => (
+                    <div key={movie.id}>
+                        <NavLink className={'movie-name'} to={`/shows/id`}>{movie.name}</NavLink>
+                    </div>
+                ))}
             </div>
         </div>
     );
