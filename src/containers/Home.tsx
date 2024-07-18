@@ -19,9 +19,10 @@ const Home: React.FC = () => {
     useEffect(() => {
         try{
             dispatch(getMovie(searchText));
-            dispatch(setError(true));
+            dispatch(setError(false));
         }catch (e) {
             console.error('Error fetching movie data:', error);
+            dispatch(setError(true));
         }
         if(id){
             try {
