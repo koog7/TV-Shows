@@ -1,7 +1,7 @@
 import AutocompleteBlock from "../components/AutocompleteBlock.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../app/store.ts";
-import '../App.css'
+import '../App.css';
 import {useEffect, useState} from "react";
 import {getAllDataMovie, getMovie, setError} from "./FetchSlice/FetchSlice.ts";
 import {useParams} from "react-router-dom";
@@ -10,8 +10,8 @@ import {useParams} from "react-router-dom";
 const Home: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const movies = useSelector((state: RootState) => state.movie.movies);
-    const loader = useSelector((state :RootState) => state.movie.loader)
-    const error = useSelector((state :RootState) => state.movie.error)
+    const loader = useSelector((state: RootState) => state.movie.loading);
+    const error = useSelector((state :RootState) => state.movie.error);
     const [searchText, setSearchText] = useState('');
     const {id} = useParams();
     const moviesAllData = useSelector((state: RootState) => state.movie.moviesAllData);
@@ -26,14 +26,14 @@ const Home: React.FC = () => {
         }
         if(id){
             try {
-                dispatch(getAllDataMovie(id))
+                dispatch(getAllDataMovie(id));
             }catch (e) {
                 console.error('Error fetching movie:', error);
                 dispatch(setError(true));
             }
-            
         }
-    }, [id,searchText]);
+        console.log(loader)
+    }, [id,searchText, dispatch]);
 
     const movieBlock = (
         <div className="movie-page-container">

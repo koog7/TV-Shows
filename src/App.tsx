@@ -1,9 +1,7 @@
-import './App.css'
+import './App.css';
 import {NavLink, Route, Routes} from "react-router-dom";
 import Home from "./containers/Home.tsx";
 import NotFound from "./components/NotFound.tsx";
-import MoviePage from "./containers/MoviePage.tsx";
-
 const App = () => {
 
     return(
@@ -26,8 +24,8 @@ const App = () => {
                 />
             </Routes>
         </>
-    )
+    );
 
 };
 
-export default App
+export default App;
