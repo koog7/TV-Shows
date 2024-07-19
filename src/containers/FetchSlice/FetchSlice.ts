@@ -70,11 +70,9 @@
         extraReducers: (builder) => {
             builder.addCase(getMovie.pending, (state: MovieState) => {
                 state.error = false;
-                console.log(state.loading , 'pending')
             }).addCase(getMovie.fulfilled, (state: MovieState, action: PayloadAction<Movie[]>) => {
                 state.loading = false;
                 state.movies = action.payload;
-                console.log(state.loading , 'fulfilled')
             }).addCase(getMovie.rejected, (state: MovieState) => {
                 state.loading = false;
                 state.error = true;

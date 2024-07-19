@@ -32,7 +32,6 @@ const Home: React.FC = () => {
                 dispatch(setError(true));
             }
         }
-        console.log(loader)
     }, [id,searchText, dispatch]);
 
     const movieBlock = (
@@ -81,7 +80,6 @@ const Home: React.FC = () => {
             <div style={{marginTop: '50px'}}>
                 {id && movieBlock}
             </div>
-
         </div>
     );
 };
